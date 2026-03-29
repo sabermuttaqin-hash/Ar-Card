@@ -39,37 +39,30 @@
   vr-mode-ui="enabled: false"
   device-orientation-permission-ui="enabled: false"
 >
-
   <a-assets>
-    <!-- MODEL 3D -->
     <a-asset-item id="lionModel" src="./singa.glb"></a-asset-item>
   </a-assets>
 
   <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-  <!-- LIGHT -->
   <a-entity light="type: ambient; intensity: 1.2"></a-entity>
   <a-entity light="type: directional; intensity: 1" position="0 1 1"></a-entity>
 
-  <!-- TARGET -->
   <a-entity mindar-image-target="targetIndex: 0">
 
-    <!-- MODEL 3D -->
     <a-gltf-model
       src="#lionModel"
-      position="0 0.25 0"
-      rotation="0 0 0"
-      scale="0.4 0.4 0.4"
-      animation="property: rotation; to: 0 360 0; loop: true; dur: 8000; easing: linear"
+      position="0 -0.4 0"
+      rotation="-90 0 0"
+      scale="0.18 0.18 0.18"
     ></a-gltf-model>
 
-    <!-- TEKS ARAB -->
     <a-text
       value="أَسَد"
-      position="0 -0.9 0"
+      position="0 -1.1 0"
       align="center"
       color="#FFD54F"
-      width="4"
+      width="5"
       side="double"
       look-at="[camera]"
     ></a-text>
