@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AR Kartu Singa 3D</title>
+
+  <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    .info {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 999;
+      background: rgba(0,0,0,0.65);
+      color: white;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="info">Arahkan kamera ke kartu singa</div>
+
+  <a-scene
+    mindar-image="imageTargetSrc: ./targets.mind; autoStart: true;"
+    color-space="sRGB"
+    renderer="colorManagement: true, physicallyCorrectLights"
+    vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false"
+  >
+    <a-assets>
+      <a-asset-item id="singaModel" src="./assets/models/singa.glb"></a-asset-item>
+      <audio id="singaSound" src="./assets/sounds/singa.mp3" preload="auto"></audio>
+    </a-assets>
+
+    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+    <a-entity light="type: ambient; intensity: 1.2"></a-entity>
+    <a-entity light="type: directional; intensity: 1" position="0 1 1"></a-entity>
+
+    <a-entity mindar-image-target="targetIndex: 0" id="target0">
+      <a-gltf-model
+        id="lion3d"
+        src="#singaModel"
+        position="0 0.25 0"
+        rotation="0 0 0"
+        scale="0.3 0.3 0.3"
+        animation="property: rotation; to: 0 360 0; loop: true; dur: 8000; easing: linear"
+      ></a-gltf-model>
+
+      <a-text
+        value="أَسَد"
+        position="0 -0.55 0"
+        align="center"
+        color="#FFD54F"
+        width="3"
+      ></a-text>
+    </a-entity>
+  </a-scene>
+
+  <script>
+    const target0 = document.querySelector("#target0");
+    const singaSound = document.querySelector("#singaSound");
+
+    target0.addEventListener("targetFound", () => {
+      if (singaSound) {
+        singaSound.currentTime = 0;
+        singaSound.play().catch(() => {});
+      }
+    });
+  </script>
+</body>
+</html>
